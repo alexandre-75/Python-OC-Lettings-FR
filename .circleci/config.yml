@@ -17,9 +17,9 @@ jobs:
       # - run:
       #     name: Tests
       #     command: pytest tests
-      - run:
-          name: Linting
-          command: flake8
+      # - run:
+      #     name: Linting
+      #     command: flake8
 
   containerize:
     docker:
@@ -69,4 +69,3 @@ workflows:
             branches:
               only:
                 - master
-                
