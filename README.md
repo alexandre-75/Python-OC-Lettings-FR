@@ -149,6 +149,7 @@ _Tested on Windows 10, Python 3.10.6. / Django 3.0_
     ``` 
     http://127.0.0.1:8000/admin/
     ```
+    
 - Login with username `admin`, password `Abc1234!`
 
 ## 13 . Deployment
@@ -160,6 +161,7 @@ In order to perform the deployment and continuous integration of the app, the fo
 - [Docker](https://www.docker.com) account
 - [Heroku](https://www.heroku.com) account
 - [Sentry](https://sentry.io/welcome/) account
+  
 - The deployment of the app is automated by the CircleCI pipeline.
 - When updates are pushed to the GitHub repository, the pipeline triggers the test suite and code linting for **all project branches**.
 - If updates are made on the **master branch**, and **if and only if** the tests and linting pass, the workflow:
@@ -180,7 +182,6 @@ In order to perform the deployment and continuous integration of the app, the fo
 | SENTRY_DSN        | Sentry project URL                                                       |
 | DOCKER_LOGIN      | Docker account username                                                  |
 | DOCKER_PASSWORD   | Docker account password                                                  |
-| DOCKER_REPO       | DockerHub repository name                                                |
 | HEROKU_APP_NAME   | Heroku app name                                                          |
 | HEROKU_API_KEY    | can be found in account settings (*Heroku API Key*)                      |
 
@@ -188,45 +189,17 @@ In order to perform the deployment and continuous integration of the app, the fo
 #### 13 . 1 . 2 Docker
 
 - Create a DockerHub repository. 
-- The repository name must match the **DOCKER_REPO** variable set in CircleCI.
 - The repository contains a Dockerfile that allows to easily build a Docker container and locally run the application.
+-  All images are tagged with the CircleCI commit “hash” ($CIRCLE_SHA1). 
 - The same container can be used for deployement for production.
-- Download and install  [Docker](https://docs.docker.com) according to your system requirement.
 - Navigate to the application root folder and build the container named img_docker: 
-
-```
-docker build -t img_docker .
-```
-
-Run the container locally: 
-
-```
-docker run -p 8000:8000 img_docker
-```
-
-The website can now be accessed locally from a web browser at 
-```
-http://localhost:8000
-```
-
 
 ####  13 . 1 . 3 Heroku
 
-- The application is pre-configured to be deployed on Heroku for production. 
-- This procedure assumes that **you already have created locally a container** named img_docker.
-- **Create** a user account on [Heroku](https://heroku.com)
-- **Download** and **install** [Heroku](https://heroku.com)
-- Login to the Heroku container registry: 
-```
-heroku container:login
-```
-- Create a new Heroku app: 
-```
-heroku create <app_name>
-```
-- The name of the app must match the **HEROKU_APP_NAME** variable set in CircleCI. 
-- Install the [Heroku Postgres](https://elements.heroku.com/addons/heroku-postgresql) addon for the app.
-- You can now check the website from the following address: https://<app_name>.herokuapp.com.
+- The application is pre-configured to be deployed on Heroku for production.
+- Create the app manually on the Heroku website.
+- The name of the app must match the **HEROKU_APP_NAME** variable set in CircleCI.
+- You can now check the website from the following address: **https://<app_name>.herokuapp.com**.
 
 
 ####  13 . 1 . 4 Sentry 
