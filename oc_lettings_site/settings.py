@@ -1,19 +1,28 @@
 import os
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+IS_HEROKU = "DYNO" in os.environ
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s'
+SECRET_KEY = ("_")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if "SECRET_KEY" in os.environ:
+    SECRET_KEY = os.environ["SECRET_KEY"]
 
-ALLOWED_HOSTS = []
+if not IS_HEROKU:
+    DEBUG = True
+
+
+if IS_HEROKU:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '.herokuapp.com']
+else:
+    ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -26,8 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'lettings',
     'profiles',
+    'lettings',
 ]
 
 MIDDLEWARE = [
@@ -109,3 +118,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+try:
+    sentry_sdk.init(
+        dsn=os.environ["SENTRY_DSN"],
+        integrations=[
+            DjangoIntegration(),
+        ],
+        traces_sample_rate=1.0,
+        send_default_pii=True,
+    )
+except KeyError:
+    print("Sentry isn't running, because no 'SENTRY_DSN' was found in env variables.")
