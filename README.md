@@ -1,4 +1,12 @@
 <p align="center"><img src="picture\16004295603423_P11.png" alt="logo" /></p>
+<p align="center">
+  <a href="https://www.python.org">
+    <img src="https://img.shields.io/badge/Python-3.6+-3776AB?style=flat&logo=python&logoColor=white" alt="python-badge">
+  </a>
+  <a href="https://www.djangoproject.com">
+    <img src="https://img.shields.io/badge/Django-3.0-092E20?style=flat&logo=django&logoColor=white" alt="django-badge">
+  </a>
+</p>
 
 ## 1 . The Project
 
