@@ -15,8 +15,10 @@ SECRET_KEY = ("_")
 if "SECRET_KEY" in os.environ:
     SECRET_KEY = os.environ["SECRET_KEY"]
 
-if not IS_HEROKU:
-    DEBUG = True
+# if not IS_HEROKU:
+#     DEBUG = True
+
+DEBUG = True
 
 
 if IS_HEROKU:
