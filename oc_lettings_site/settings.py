@@ -19,7 +19,6 @@ if not IS_HEROKU:
     DEBUG = True
 
 
-
 if IS_HEROKU:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '.herokuapp.com']
 else:
