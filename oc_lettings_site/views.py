@@ -1,5 +1,5 @@
 from django.shortcuts import render
-# from sentry_sdk import capture_message
+from sentry_sdk import capture_message
 
 
 def index(request):
@@ -14,5 +14,5 @@ def index(request):
     Nullam elementum urna nisi, pellentesque iaculis enim cursus in.
     Praesent volutpat porttitor magna, non finibus neque cursus id.
     """
-    # capture_message("Page not found!", level="error")
+    capture_message("Page not found!", level="error")
     return render(request, 'index.html')
