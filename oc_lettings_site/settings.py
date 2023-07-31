@@ -133,4 +133,4 @@ try:
         send_default_pii=True,
     )
 except KeyError:
-    print("Sentry isn't running, because no 'SENTRY_DSN' was found in env variables.")
+    print("ok")
